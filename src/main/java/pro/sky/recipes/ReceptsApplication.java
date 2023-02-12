@@ -1,4 +1,4 @@
-package pro.sky.recepts;
+package pro.sky.recipes;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
