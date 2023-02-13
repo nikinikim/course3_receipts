@@ -29,7 +29,7 @@ public class IngredientController {
     @PostMapping
     @Operation(summary = "Добавление ингредиента")
     @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "Ингредиент добавлен")})
-    public ResponseEntity<Ingredient> addIngredient(@Valid @PathVariable Ingredient ingredient) {
+    public ResponseEntity<Ingredient> addIngredient(@Valid @RequestBody Ingredient ingredient) {
         return ResponseEntity.ok(ingredientService.addIngredient(ingredient));
     }
     @GetMapping("/{id}")
