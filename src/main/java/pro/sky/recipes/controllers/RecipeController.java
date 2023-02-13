@@ -61,7 +61,7 @@ public class RecipeController {
 
     @GetMapping("/all")
     @Operation(summary = "Получение всех рецептов")
-    @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "Рецепты получены")})
+    @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "Возвращает список всех рецептов")})
     public ResponseEntity<Collection<Recipe>> getAllRecipes() {
         return ResponseEntity.ok(recipeService.getAll());
     }
