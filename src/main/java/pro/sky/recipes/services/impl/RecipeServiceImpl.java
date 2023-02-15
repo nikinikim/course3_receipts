@@ -66,6 +66,7 @@ public class RecipeServiceImpl implements RecipeService {
             throw new NullPointerException("Рецепт по указанному Id не найден");
         }
         Recipe deletedRecipe = recipeMap.remove(id);
+        saveToFile();
         return deletedRecipe;
     }
 

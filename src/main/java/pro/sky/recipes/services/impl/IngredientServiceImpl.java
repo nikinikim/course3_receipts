@@ -65,6 +65,7 @@ public class IngredientServiceImpl implements IngredientService {
             throw new NotFoundException("Ингредиент по указанному id отсутствует");
         }
         Ingredient deletedIngredient = ingredientMap.remove(id);
+        saveToFile();
         return deletedIngredient;
     }
 
