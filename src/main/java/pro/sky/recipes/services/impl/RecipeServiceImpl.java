@@ -22,6 +22,10 @@ public class RecipeServiceImpl implements RecipeService {
     @Value("${name.of.recipe.file}")
     private String recipesFileName;
 
+    public String getRecipesFileName() {
+        return recipesFileName;
+    }
+
     final private FileService fileService;
 
     private Map<Integer, Recipe> recipeMap = new HashMap<>();

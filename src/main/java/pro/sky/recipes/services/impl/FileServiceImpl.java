@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import pro.sky.recipes.services.FileService;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
@@ -36,6 +37,11 @@ public class FileServiceImpl implements FileService {
             throw new RuntimeException(e);
         }
     }
+    @Override
+    public File getDatafile(String fileName){
+        return new File(filePath + "/" + fileName);
+    }
+
     @Override
     public boolean cleanFile(String fileName) {
         try {

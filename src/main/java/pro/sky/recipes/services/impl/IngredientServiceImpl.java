@@ -22,6 +22,10 @@ public class IngredientServiceImpl implements IngredientService {
     @Value("${name.of.ingredient.file}")
     private String ingredientFileName;
 
+    public String getIngredientFileName() {
+        return ingredientFileName;
+    }
+
     final private FileService fileService;
 
     private Map<Integer, Ingredient> ingredientMap = new HashMap<>();
