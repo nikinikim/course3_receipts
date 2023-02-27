@@ -1,5 +1,6 @@
 package pro.sky.recipes.controllers;
 
+import io.swagger.v3.oas.annotations.Operation;
 import org.apache.commons.io.IOUtils;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
@@ -15,6 +16,8 @@ import pro.sky.recipes.services.impl.IngredientServiceImpl;
 import pro.sky.recipes.services.impl.RecipeServiceImpl;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 @RestController
 @RequestMapping("/files")
@@ -44,19 +47,25 @@ public class FilesController {
 
     }
 
-    @GetMapping(value = "/recipe/export")
+    @GetMapping(value = "/export")
     public ResponseEntity<InputStreamResource> downloadRecipeFile() throws FileNotFoundException {
         File file = fileService.getDatafile(recipeService.getRecipesFileName());
 
-        if (file.exists()) {
             InputStreamResource resource = new InputStreamResource(new FileInputStream(file));
             return ResponseEntity.ok().contentType(MediaType.APPLICATION_OCTET_STREAM).contentLength(file.length())
-                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"Recipe.json\"")
+                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"RecipeList.json\"")
                     .body(resource);
-        } else {
-            return ResponseEntity.noContent().build();
-        }
 
+    }
+
+    @GetMapping("/recipe/export")
+    @Operation(description = "Экспорт файла всех рецептов")
+    public ResponseEntity<InputStreamResource> downloadAllRecipeFile() throws IOException {
+        InputStreamResource inputStreamResource = fileService.exportRecipes(recipeService.getRecipeMap());
+        return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON)
+                .contentLength(Files.size(Path.of(fileService.getFilePath())))
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; fileName =\"recipes.json\"")
+                .body(inputStreamResource);
     }
 
     @PostMapping(value = "/ingredient/import", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
